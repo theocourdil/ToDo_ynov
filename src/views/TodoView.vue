@@ -1,9 +1,10 @@
 <template>
     <div>
         <div class="todo">
-            Voici ma super ToDo List
+            Voici votre super ToDo List
         </div>
-        <h4 v-if="IsInvalid">RENSEIGNE LES CHAMPS</h4>
+        <h4>Vous avez {{todos.length}} Todos</h4>
+        <h4 v-if="IsInvalid">Veuillez rensergner tous les champs</h4>
         <form @submit.prevent="AddTodo()">
             <label for="input_text">Nom
                 <input class="input_todo" v-model="name" type="text" id="heure" name="input_text">
@@ -26,13 +27,16 @@
           <div class="col">{{ todo.hours }}</div>
           <div class="col">{{ todo.users }}</div>
           <div class="col">
-            <button @click="todos.splice(index, 1)">
-                Delete
+            <button class="button_delete" @click="todos.splice(index, 1)">
+                <i class="fa fa-trash-o" aria-hidden="true"></i>
+            </button>
+            <button class="button_edit">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
             </button>
           </div>
         </div>
         <div v-if="todos.length > 0">
-            <button @click="todos = []">
+            <button  style="margin-top:20px;" @click="todos = []">
                 Delete ALL
             </button>
         </div>
@@ -58,7 +62,11 @@ export default {
           name: this.name,
           hours: this.hours,
           users: this.users,
+          status: 'A venir',
         });
+        this.name = '';
+        this.hours = '';
+        this.users = '';
       }
     },
     IsVerified() {
@@ -84,7 +92,7 @@ export default {
       justify-content: space-around;
       border: solid black 1px;
       margin-top: 40px;
-      width: 80%;
+      width: 90%;
       border-radius: 10px;
       margin-right: auto;
       margin-left: auto;
@@ -94,6 +102,25 @@ export default {
   .input_todo {
       padding: 8px;
       border-radius: 5px;
+  }
+
+  .button_delete {
+    color: white;
+    background-color: red;
+    padding: 10px;
+    border: none;
+    font-size: 15px;
+    border-radius: 50%;
+    margin-right: 15px;
+  }
+
+  .button_edit {
+    color: white;
+    background-color: blue;
+    padding: 10px;
+    border: none;
+    font-size: 15px;
+    border-radius: 50%;
   }
 
 </style>
